@@ -1,0 +1,54 @@
+@{
+    // Suponho que você esteja passando uma lista de PlanoContaModel para a ViewBag
+    var listaPlanoConta = ViewBag.ListaPlanoConta as List<PlanoContaModel>;
+}
+
+@{
+    ViewData["Title"] = "Plano de Contas";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<button type="button" class="btn btn-block btn-primary" onclick="Novo()">Criar Item de Plano de Conta</button><br><br>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Descrição</th>
+            <th>Tipo</th>
+            <th>#</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in listaPlanoConta)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Descricao</td>
+                <td>@item.Tipo</td>
+                <td>
+                    <button type="button" class="btn btn-block btn-outline-warning" onclick="Atualizar('@item.Id')">Editar</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-block btn-outline-danger" onclick="Excluir('@item.Id')">Excluir</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function Novo() {
+        window.location.href = "@Url.Action("Cadastrar", "PlanoConta")";
+    }
+
+    function Atualizar(id) {
+        window.location.href = "@Url.Action("Cadastrar", "PlanoConta")/" + id;
+    }
+
+    function Excluir(id) {
+        window.location.href = "@Url.Action("Excluir", "PlanoConta")/" + id;
+    }
+</script>
